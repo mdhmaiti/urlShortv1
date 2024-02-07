@@ -1,14 +1,15 @@
  
- import mongoose  from 'mongoose';
+const mongoose = require("mongoose")
+ require('dotenv').config()
 
- export const connectToDB = async () => {
+const connectToDB = async () => {
    try {
-     await mongoose.connect('mongodb://localhost/mydatabase', {
-       useNewUrlParser: true,
-       useUnifiedTopology: true,
+     await mongoose.connect(process.env.MONGODB_URL , {
+      
      });
      console.log('Connected to MongoDB');
    } catch (error) {
      console.error('Failed to connect to MongoDB:', error);
    }
  };
+ module.exports = connectToDB

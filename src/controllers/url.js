@@ -1,39 +1,30 @@
-// this generate short url 
-const urlDb = require("../models/urlmodel")
+// this generate short url
+const urlDb = require("../models/urlmodel");
 
-import ShortUniqueId from 'short-unique-id';
-import { connectToDB } from '../models/db';
+const ShortUniqueId = require("short-unique-id");
+const  connectToDB  = require("../models/db");
 
+// this returns an id  of type string
+const generateShortUrl = async (req, res) => {
+  const {url} = req.body;
+  if (!url) {
+    return res.status(400).json("the body is empty/ the nody is not a string");
+  }
+  const uuid = new ShortUniqueId();
+  const id = uuid.rnd()
+  try {
+    await connectToDB();
+    await urlDb.create({
+      shortID: id,
+      redirectUrl: url,
+      visitTime: [],
+    });
 
-// this returns an id  of type string 
-const generateShortUrl = async(req,res)=>{
-
-    if(!req.body){
-        return res.status(400).json("the body is empty/ the nody is not a string");
-    }
-    const uuid = new ShortUniqueId({length:5});
-    try {
-        await connectToDB();
-        await urlDb.create({
-            shortID: uuid,
-        },
-        {
-            redirectUrl: req.body,
-        }
-        )
-    
-        return res.status(200).json({id:uuid });
-        
-    } catch (error) {
-        console.log(error,"the database connection failed ");
-
-        
-    }
-   
-    
-   
-
-}
-module.exports= {
-    generateShortUrl,
-}
+    return res.status(200).json({ id: id });
+  } catch (error) {
+    console.log(error, "the database connection failed ");
+  }
+};
+module.exports = {
+  generateShortUrl,
+};

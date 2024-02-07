@@ -4,14 +4,17 @@
   "description": "Design a url shortener service that takes a valid url and then return a shortened url, redirection the user to the original url",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "mongoose": "^8.1.1",
+    "nodemon": "^3.0.3",
     "short-unique-id": "^5.0.3"
   }
 }
