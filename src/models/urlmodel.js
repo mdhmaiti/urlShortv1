@@ -20,4 +20,5 @@ const urlSchema = new mongoose.Schema({
 },
 //this will add the created at and the updated adt when the schmea is created 
 {timestamps:true}
-)
+);
+module.exports = mongoose.model("urlmodel", urlSchema);
